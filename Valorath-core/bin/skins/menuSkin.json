@@ -1,0 +1,60 @@
+{
+    "com.badlogic.gdx.graphics.g2d.BitmapFont": {
+        "impact32white": { 
+        	"file": "fonts/impact32white.fnt" 
+        },
+        "impact48white": { 
+        	"file": "fonts/impact48white.fnt" 
+        },
+        "impact64white": { 
+        	"file": "fonts/impact64white.fnt" 
+        },
+        "impact128white": { 
+        	"file": "fonts/impact128white.fnt" 
+        },
+        "impact256white": { 
+        	"file": "fonts/impact256white.fnt" 
+        },
+        "impact32black": { 
+        	"file": "fonts/impact32black.fnt" 
+        },
+        "impact48black": { 
+        	"file": "fonts/impact48black.fnt" 
+        },
+        "impact64black": { 
+        	"file": "fonts/impact64black.fnt" 
+        },
+        "impact128black": { 
+        	"file": "fonts/impact128black.fnt" 
+        }
+    },
+    "com.badlogic.gdx.graphics.Color": {
+        "white": { 
+        	"r": 1, 
+        	"g": 1, 
+        	"b": 1, 
+        	"a": 1 
+        },
+        "black": {
+        	"r": 0, 
+        	"g": 0, 
+        	"b": 0, 
+        	"a": 1 
+        },
+    },
+    "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": { 
+        "default": { 
+        	"font": impact64white, 
+        	"pressedOffsetY": 0 
+        }
+    },
+    "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
+        "titleblack": { 
+        	"font": impact128black 
+        },
+        "titlewhite": { 
+        	"font": impact128white, 
+        	"fontColor": white
+        },
+    },
+ }

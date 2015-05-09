@@ -37,9 +37,9 @@ public class Assets {
         
         Texture knightTexture = manager.get("knight_move.png", Texture.class);
         TextureRegion[] knightRegions = new TextureRegion[19];
-        knightRegions[0] = new TextureRegion(knightTexture, 0, 0, 64, 64);
+        knightRegions[0] = new TextureRegion(knightTexture, 60, 16, 96, 96);
         
-        regions.put("knight", knightRegions);
+        regions.put("knightMoving", knightRegions);
     }
     
     // In here we'll create our skin, so we only have to create it once.

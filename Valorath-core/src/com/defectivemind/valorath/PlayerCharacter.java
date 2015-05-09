@@ -2,14 +2,20 @@ package com.defectivemind.valorath;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class PlayerCharacter implements InputProcessor, GameObject {
-	Sprite playerSprite;
+	TextureRegion[] knightMoving;
 	float speed = 250f;
+	
+	Vector2 position;
+	float rotation = 0.0f;
+	
+	int height = 96;
+	int width = 96;
 	
 	boolean isMoving = false;
 	Vector2 moveTarget = new Vector2();
@@ -26,8 +32,8 @@ public class PlayerCharacter implements InputProcessor, GameObject {
 	// Set the player moving to a position that puts the sprite in the middle of the mouse
 	public void moveTo(Vector2 pos) {
 		isMoving = true;
-		moveTarget.x = pos.x - playerSprite.getWidth() / 2;
-		moveTarget.y = pos.y - playerSprite.getHeight() / 2;
+		moveTarget.x = pos.x - width / 2;
+		moveTarget.y = pos.y - height / 2;
 		
 		faceTarget(moveTarget);
 	}
@@ -37,17 +43,14 @@ public class PlayerCharacter implements InputProcessor, GameObject {
 	}
 	
 	public void faceTarget (Vector2 target) {
-		Vector2 playerPos = new Vector2(playerSprite.getX(), playerSprite.getY());
-		Vector2 moveVect = target.cpy().sub(playerPos);
+		Vector2 moveVect = target.cpy().sub(position);
 		
 		// 1 radian = ~57.3 degrees
-		float rot = (float)Math.atan2(moveVect.y, moveVect.x) * 57.3f;
-		
-		playerSprite.setRotation(rot - 90);
+		rotation = (float)Math.atan2(moveVect.y, moveVect.x) * 57.3f + 90;
 	}
 	
 	public Vector2 getPosition () {
-		return new Vector2(playerSprite.getX() + playerSprite.getWidth() / 2, playerSprite.getY() + playerSprite.getHeight() / 2);
+		return new Vector2(position.x + width / 2, position.y + height / 2);
 	}
 	
 	public void setCamera (Camera cam) {
@@ -64,18 +67,17 @@ public class PlayerCharacter implements InputProcessor, GameObject {
 	
 	@Override
 	public void render (SpriteBatch sb) {
-		playerSprite.draw(sb);
+		sb.draw(knightMoving[0], position.x, position.y, width / 2, height / 2, width, height, 1, 1, rotation);
 	}
 
 	@Override
 	public void update (float delta) {
 		if (isMoving) {
-			Vector2 playerPos = new Vector2(playerSprite.getX(), playerSprite.getY());
-			Vector2 moveVect = moveTarget.cpy().sub(playerPos).clamp(0, speed * delta);
+			Vector2 moveVect = moveTarget.cpy().sub(position).clamp(0, speed * delta);
 			
-			playerSprite.translate(moveVect.x, moveVect.y);
+			position.add(moveVect);
 			
-			if (playerPos.equals(moveTarget)) isMoving = false;
+			if (position == moveVect) isMoving = false;
 		}
 	}
 	
@@ -86,8 +88,8 @@ public class PlayerCharacter implements InputProcessor, GameObject {
 	
 	@Override
 	public void create () {
-		playerSprite = new Sprite(Assets.textures.get("player"));
-		playerSprite.setPosition(500, 500);
+		knightMoving = Assets.regions.get("knightMoving");
+		position = new Vector2(500, 500);
 	}
 	
 	@Override

@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Assets {
@@ -17,6 +18,7 @@ public class Assets {
     public static Skin menuSkin;
 
     public static Map<String, Texture> textures = new HashMap<String, Texture>();
+    public static Map<String, TextureRegion[]> regions = new HashMap<String, TextureRegion[]>();
     
     // In here we'll put everything that needs to be loaded in this format:
     // manager.load("file location in assets", fileType.class);
@@ -26,11 +28,18 @@ public class Assets {
     public static void queueLoading () {
         manager.load("skins/menuSkin.pack", TextureAtlas.class);
         manager.load("tank.png", Texture.class);
+        manager.load("knight_move.png", Texture.class);
     }
     
     // Load textures into texture array
     public static void loadTextures () {
         textures.put("player", manager.get("tank.png", Texture.class));
+        
+        Texture knightTexture = manager.get("knight_move.png", Texture.class);
+        TextureRegion[] knightRegions = new TextureRegion[19];
+        knightRegions[0] = new TextureRegion(knightTexture, 0, 0, 64, 64);
+        
+        regions.put("knight", knightRegions);
     }
     
     // In here we'll create our skin, so we only have to create it once.

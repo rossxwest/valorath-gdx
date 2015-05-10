@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.math.Rectangle;
 
 public class GameMap implements GameObject {
     TiledMap map;
@@ -28,9 +29,14 @@ public class GameMap implements GameObject {
     TextureRegion groundRegion;
     TextureRegion wallRegion;
     
+    int width = 64;
+    int height = 64;
+    
+    int tileWidth = 64;
+    int tileHeight = 64;
+    
 	public GameMap (OrthographicCamera camera) {
 		cam = camera;
-		
 		create();
 	}
 	
@@ -42,14 +48,12 @@ public class GameMap implements GameObject {
 
 	@Override
 	public void update(float delta) {
-		
-		
+				
 	}
 
 	@Override
 	public void destroy() {
 
-		
 	}
 
 	@Override
@@ -57,8 +61,8 @@ public class GameMap implements GameObject {
 		map = new TiledMap();
 		layers = map.getLayers();
 		
-		TiledMapTileLayer ground = new TiledMapTileLayer(4096, 4096, 64, 64);
-		TiledMapTileLayer walls = new TiledMapTileLayer(4096, 4096, 64, 64);
+		TiledMapTileLayer ground = new TiledMapTileLayer(width * tileWidth, height * tileHeight, tileWidth, tileHeight);
+		TiledMapTileLayer walls = new TiledMapTileLayer(width * tileWidth, height * tileHeight, tileWidth, tileHeight);
 		
 		groundTexture = new Texture(Gdx.files.internal("grass.png"));
 		groundRegion = new TextureRegion(groundTexture, 0, 0, 64, 64);
@@ -72,11 +76,11 @@ public class GameMap implements GameObject {
 		Cell wallCell = new Cell();
 		wallCell.setTile(new StaticTiledMapTile(wallRegion));
 		
-		for (int i = 0; i < 64; i++) {
-			for (int j = 0; j < 64; j++) {
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
 				ground.setCell(i,  j, groundCell);
 				
-				if (i == 0 || j == 0 || i == 63 || j == 63) {
+				if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
 					walls.setCell(i,  j, wallCell);
 				}
 			}
@@ -88,4 +92,24 @@ public class GameMap implements GameObject {
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(map);
 	}
 
+	public boolean checkCollision(Rectangle rect) {
+		// figure out which tiles to check for collision
+		int lowerX = (int)rect.x / tileWidth;
+		int lowerY = (int)rect.y / tileHeight;
+		
+		int upperX = (int)(rect.x + rect.width)/ tileWidth;
+		int upperY = (int)(rect.y + rect.height)/ tileHeight;
+		
+		TiledMapTileLayer layer = (TiledMapTileLayer) layers.get(1);
+		
+		for (int x = lowerX; x < upperX; x++) {
+			for (int y = lowerY; y < upperY; y++) {
+				if (layer.getCell(x, y) != null) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
 }

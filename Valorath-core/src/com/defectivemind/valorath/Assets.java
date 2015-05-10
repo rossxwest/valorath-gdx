@@ -35,11 +35,29 @@ public class Assets {
     public static void loadTextures () {
         textures.put("player", manager.get("tank.png", Texture.class));
         
-        Texture knightTexture = manager.get("knight_move.png", Texture.class);
-        TextureRegion[] knightRegions = new TextureRegion[19];
-        knightRegions[0] = new TextureRegion(knightTexture, 60, 16, 96, 96);
+        Texture knightMovingTexture = manager.get("knight_move.png", Texture.class);
+        TextureRegion[] knightMovingRegions = new TextureRegion[19];
+        knightMovingRegions[0] = new TextureRegion(knightMovingTexture, 60, 16, 96, 96);
+        knightMovingRegions[1] = new TextureRegion(knightMovingTexture, 264, 16, 96, 96);
+        knightMovingRegions[2] = new TextureRegion(knightMovingTexture, 468, 16, 96, 96);
+        knightMovingRegions[3] = new TextureRegion(knightMovingTexture, 672, 16, 96, 96);
+        knightMovingRegions[4] = new TextureRegion(knightMovingTexture, 880, 16, 96, 96);
+        knightMovingRegions[5] = new TextureRegion(knightMovingTexture, 60, 200, 96, 96);
+        knightMovingRegions[6] = new TextureRegion(knightMovingTexture, 264, 200, 96, 96);
+        knightMovingRegions[7] = new TextureRegion(knightMovingTexture, 468, 200, 96, 96);
+        knightMovingRegions[8] = new TextureRegion(knightMovingTexture, 672, 200, 96, 96);
+        knightMovingRegions[9] = new TextureRegion(knightMovingTexture, 880, 200, 96, 96);
+        knightMovingRegions[10] = new TextureRegion(knightMovingTexture, 60, 384, 96, 96);
+        knightMovingRegions[11] = new TextureRegion(knightMovingTexture, 264, 384, 96, 96);
+        knightMovingRegions[12] = new TextureRegion(knightMovingTexture, 468, 384, 96, 96);
+        knightMovingRegions[13] = new TextureRegion(knightMovingTexture, 672, 384, 96, 96);
+        knightMovingRegions[14] = new TextureRegion(knightMovingTexture, 880, 384, 96, 96);
+        knightMovingRegions[15] = new TextureRegion(knightMovingTexture, 60, 568, 96, 96);
+        knightMovingRegions[16] = new TextureRegion(knightMovingTexture, 264, 568, 96, 96);
+        knightMovingRegions[17] = new TextureRegion(knightMovingTexture, 468, 568, 96, 96);
+        knightMovingRegions[18] = new TextureRegion(knightMovingTexture, 672, 568, 96, 96);
         
-        regions.put("knightMoving", knightRegions);
+        regions.put("knightMoving", knightMovingRegions);
     }
     
     // In here we'll create our skin, so we only have to create it once.

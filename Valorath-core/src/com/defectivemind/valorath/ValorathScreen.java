@@ -12,6 +12,7 @@ public class ValorathScreen implements Screen {
 	OrthographicCamera camera;
 	SpriteBatch sb;
     PlayerCharacter player;
+    PlayerInput input;
     float fullDelta = 0;
     
     GameMap map;
@@ -27,11 +28,13 @@ public class ValorathScreen implements Screen {
         sb = new SpriteBatch();
         
         player = new PlayerCharacter();
-        player.setCamera(camera);
         
-        Gdx.input.setInputProcessor(player);
+        input = new PlayerInput(camera, player);
+        
+        Gdx.input.setInputProcessor(input);
         
         map = new GameMap(camera);
+        player.setMap(map);
 	}
 	
 	@Override
